@@ -221,9 +221,6 @@ export default function Home() {
                 <Button asChild size="lg">
                   <Link href="#projects">See what I&apos;ve built</Link>
                 </Button>
-                <Button asChild variant="secondary" size="lg">
-                  <Link href="#contact">Add / update socials</Link>
-                </Button>
               </div>
               <div className="mt-8">
                 <SocialLinks align="start" compact />
