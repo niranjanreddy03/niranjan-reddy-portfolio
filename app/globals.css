@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --accent: 159 179 168;
+  --accent-soft: rgba(159, 179, 168, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: #050608;
+  color: #f8fafc;
+}
+
+::selection {
+  background: rgba(159, 179, 168, 0.26);
+  color: #f8fafc;
+}
+
+input,
+textarea,
+button {
+  font: inherit;
+}
+
+.text-accent {
+  color: rgb(var(--accent)) !important;
+}
+
+.bg-accent-soft {
+  background-color: var(--accent-soft) !important;
+}
+
+.border-accent {
+  border-color: rgb(var(--accent)) !important;
+}
+
+.border-accent\/25 {
+  border-color: rgb(var(--accent) / 0.25) !important;
+}
+
+.border-accent\/30 {
+  border-color: rgb(var(--accent) / 0.3) !important;
+}
+
+.border-accent\/35 {
+  border-color: rgb(var(--accent) / 0.35) !important;
+}
+
+.border-accent\/40 {
+  border-color: rgb(var(--accent) / 0.4) !important;
+}
+
+.hover\:border-accent\/60:hover {
+  border-color: rgb(var(--accent) / 0.6) !important;
+}
+
+.focus\:border-accent:focus {
+  border-color: rgb(var(--accent)) !important;
+}
+
+.focus\:ring-accent:focus,
+.focus-visible\:ring-accent:focus-visible {
+  --tw-ring-color: rgb(var(--accent)) !important;
+}
+
+.group:hover .group-hover\:text-accent {
+  color: rgb(var(--accent)) !important;
+}
