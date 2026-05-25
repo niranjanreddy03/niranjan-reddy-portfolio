@@ -35,7 +35,14 @@ export function ContactForm() {
       <CardHeader>
         <CardTitle>Send a message</CardTitle>
         <CardDescription>
-          Reach me directly at {contactEmail} or send a quick message here.
+          Reach me directly at{" "}
+          <a
+            href={`mailto:${contactEmail}`}
+            className="font-medium text-accent underline decoration-accent/40 underline-offset-4 transition-colors hover:text-foreground"
+          >
+            {contactEmail}
+          </a>{" "}
+          or send a quick message here.
         </CardDescription>
       </CardHeader>
       <CardContent>

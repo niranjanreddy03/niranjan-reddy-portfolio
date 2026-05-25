@@ -46,7 +46,7 @@ const focusAreas = [
 const terminalLines = [
   { key: "profile", value: "Niranjan Reddy" },
   { key: "learning", value: "cybersecurity + cloud security" },
-  { key: "current", value: "building TheVaultSentry" },
+  { key: "current", value: "learning SOC workflows + SIEM tools" },
   { key: "tools", value: "Burp Suite / Nmap / Wireshark / AWS" },
 ];
 
@@ -105,11 +105,11 @@ const certifications = [
   {
     title: "CompTIA Security+",
     issuer: "CompTIA",
-    status: "Security certification",
+    status: "Verification update soon",
     description:
-      "Security+ credential entry for cybersecurity fundamentals, risk management, threats, architecture, and operations.",
+      "Security+ certificate verification will be updated soon after the verification link is ready.",
     verificationHref: "#",
-    actionLabel: "Verification unavailable",
+    actionLabel: "Verify Security+",
     disabled: true,
   },
 ];
@@ -139,8 +139,7 @@ const projects: Project[] = [
       "Simulated a SOC environment by analyzing logs, detecting suspicious activity, investigating alerts, and documenting incident response procedures.",
     stack: ["SOC", "Log Analysis", "Incident Response"],
     category: "Security",
-    // Add this project's GitHub/repository link here when the repo is public.
-    githubHref: "",
+    githubHref: "https://github.com/niranjanreddy03",
   },
   {
     title: "Blue Team Security Lab Project",
@@ -148,8 +147,7 @@ const projects: Project[] = [
       "Configured and tested defensive security tools for vulnerability assessment, monitoring, and basic threat mitigation in a lab environment.",
     stack: ["Blue Team", "Monitoring", "Vulnerability Assessment"],
     category: "Security",
-    // Add this project's GitHub/repository link here when the repo is public.
-    githubHref: "",
+    githubHref: "https://github.com/niranjanreddy03",
   },
 ];
 
