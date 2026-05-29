@@ -30,46 +30,46 @@ import {
 } from "@/components/ui/card";
 
 const stats = [
-  { value: "5+", label: "Projects Completed" },
+  { value: "5+", label: "Security Projects" },
   { value: "4", label: "Credentials" },
   { value: "40+", label: "TryHackMe Labs" },
-  { value: "15+", label: "Technologies Learned" },
+  { value: "15+", label: "Security Tools Practiced" },
 ];
 
 const focusAreas = [
   "SOC workflows",
-  "AWS security basics",
-  "Mobile app testing",
-  "Threat monitoring",
+  "Blue Team practice",
+  "Threat detection",
+  "Incident response",
 ];
 
 const terminalLines = [
   { key: "profile", value: "Niranjan Reddy" },
-  { key: "learning", value: "cybersecurity + cloud security" },
-  { key: "current", value: "learning SOC workflows + SIEM tools" },
-  { key: "tools", value: "Burp Suite / Nmap / Wireshark / AWS" },
+  { key: "learning", value: "blue team + cloud security" },
+  { key: "current", value: "SOC workflows + SIEM investigation" },
+  { key: "tools", value: "Splunk basics / Wireshark / Nmap / AWS" },
 ];
 
 const skills = [
   {
-    category: "Cybersecurity",
+    category: "Blue Team",
     icon: Radar,
-    items: ["SIEM basics", "Log analysis", "Burp Suite", "Nmap", "Wireshark"],
+    items: ["SOC workflows", "SIEM basics", "Log analysis", "Alert triage", "Incident notes"],
   },
   {
-    category: "Cloud",
+    category: "Cloud Security",
     icon: Cloud,
-    items: ["AWS", "Cloud deployment", "Docker", "CI/CD"],
+    items: ["AWS IAM", "Secure configuration", "Cloud monitoring", "Basic networking"],
   },
   {
-    category: "Tools",
+    category: "Security Tools",
     icon: Wrench,
-    items: ["Burp Suite", "Nmap", "Wireshark", "Linux", "Git/GitHub"],
+    items: ["Wireshark", "Nmap", "Burp Suite", "Linux", "GitHub secret review"],
   },
   {
-    category: "Practice",
+    category: "Detection Practice",
     icon: BookOpenCheck,
-    items: ["TryHackMe", "CTF basics", "Security labs", "Writeups"],
+    items: ["TryHackMe", "Detection thinking", "Purple Team awareness", "Security writeups"],
   },
 ];
 
@@ -88,7 +88,7 @@ const certifications = [
     issuer: "TryHackMe",
     status: "Public profile",
     description:
-      "Hands-on rooms and labs covering Linux, network tools, vulnerability assessment, and defensive security basics.",
+      "Hands-on rooms and labs covering Linux, network tools, defensive security basics, and investigation practice.",
     verificationHref: "https://tryhackme.com/p/niranjan.123",
     actionLabel: "View profile",
   },
@@ -97,7 +97,7 @@ const certifications = [
     issuer: "CipherSchools",
     status: "Certificate",
     description:
-      "Completed Python programming training through CipherSchools, strengthening core programming fundamentals and problem-solving practice.",
+      "Completed Python programming training, useful for security scripting, log parsing, and automation fundamentals.",
     verificationHref:
       "https://www.cipherschools.com/certificate/preview?id=687db9bf3eaa79325b2d2a24",
     actionLabel: "Verify certificate",
@@ -118,18 +118,18 @@ const projects: Project[] = [
   {
     title: "TheVaultSentry",
     description:
-      "A cybersecurity news and threat monitoring platform designed to surface relevant security updates with a clean analyst-friendly interface.",
-    stack: ["Threat Intel", "Security Dashboard", "Security News"],
-    category: "Security",
+      "A secret exposure detection project focused on finding leaked credentials in code and presenting risk clearly for security review.",
+    stack: ["Secret Scanning", "Credential Detection", "Risk Review"],
+    category: "Blue Team",
     // Add this project's GitHub/repository link here.
     githubHref: "https://github.com/niranjanreddy03/valutsentrynew",
   },
   {
-    title: "AWS Cloud Infrastructure Deployment",
+    title: "AWS Cloud Security Practice",
     description:
-      "Cloud deployment practice focused on AWS services, secure configuration basics, and repeatable infrastructure patterns.",
-    stack: ["AWS", "Cloud", "Deployment"],
-    category: "Cloud",
+      "AWS security practice focused on IAM basics, secure configuration, networking foundations, and repeatable cloud setup.",
+    stack: ["AWS", "IAM", "Secure Configuration"],
+    category: "Cloud Security",
     // Add this project's GitHub/repository link here.
     githubHref: "https://github.com/niranjanreddy03/thevaultsentry-aws-infrastructure",
   },
@@ -138,15 +138,15 @@ const projects: Project[] = [
     description:
       "Simulated a SOC environment by analyzing logs, detecting suspicious activity, investigating alerts, and documenting incident response procedures.",
     stack: ["SOC", "Log Analysis", "Incident Response"],
-    category: "Security",
+    category: "Blue Team",
     githubHref: "https://github.com/niranjanreddy03",
   },
   {
     title: "Blue Team Security Lab Project",
     description:
-      "Configured and tested defensive security tools for vulnerability assessment, monitoring, and basic threat mitigation in a lab environment.",
-    stack: ["Blue Team", "Monitoring", "Vulnerability Assessment"],
-    category: "Security",
+      "Configured defensive security tools for monitoring, basic exposure review, alert handling, and threat mitigation in a lab environment.",
+    stack: ["Blue Team", "Monitoring", "Alert Triage"],
+    category: "Blue Team",
     githubHref: "https://github.com/niranjanreddy03",
   },
 ];
@@ -167,16 +167,16 @@ const timeline = [
       "Worked in a collaborative environment where planning, public communication, and quick problem solving mattered every day.",
   },
   {
-    title: "AWS Related Learning",
+    title: "AWS Cloud Security Learning",
     description:
-      "Building fundamentals around cloud infrastructure, deployment models, identity, networking, and secure configuration.",
+      "Building fundamentals around cloud identity, networking, monitoring, and secure configuration.",
     detail:
       "Focused on core AWS ideas including IAM, networking foundations, deployment flow, and how secure configuration affects cloud risk.",
   },
   {
     title: "TryHackMe and Security Lab Practice",
     description:
-      "Hands-on TryHackMe practice across vulnerability assessment, threat detection basics, Linux, network tools, and mobile app analysis.",
+      "Hands-on TryHackMe practice across defensive security, threat detection basics, Linux, and network tools.",
     detail:
       "Used TryHackMe rooms and tools such as Nmap, Wireshark, and Burp Suite to connect theory with practical security investigation habits.",
   },
@@ -202,13 +202,14 @@ export default function Home() {
                 Cybersecurity student at Lovely Professional University
               </p>
               <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-foreground sm:text-5xl md:text-6xl">
-                Hi, I&apos;m Niranjan. I build small security projects and learn by
-                breaking things carefully.
+                Hi, I&apos;m Niranjan Reddy, a cybersecurity student focused on Blue
+                Team operations and cloud security.
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
-                I&apos;m focused on SOC operations, AWS security, vulnerability
-                assessment, and turning messy security notes into useful systems.
-                This site is a working notebook for the projects I&apos;m building.
+                I&apos;m building practical skills in log analysis, incident
+                response, SIEM investigation, AWS security, and defensive
+                security labs. This portfolio highlights my progress toward
+                becoming a stronger Blue Team analyst.
               </p>
               <div className="mt-8 flex flex-wrap gap-2">
                 {focusAreas.map((area) => (
@@ -241,7 +242,7 @@ export default function Home() {
                 <div className="space-y-5 p-5 font-mono text-sm">
                   <div>
                     <p className="text-muted">$ whoami</p>
-                    <p className="mt-1 text-slate-100">security learner / cloud builder</p>
+                    <p className="mt-1 text-slate-100">blue team learner / SOC-focused</p>
                   </div>
                   <div className="space-y-3">
                     {terminalLines.map((line) => (
@@ -260,8 +261,9 @@ export default function Home() {
                       latest focus
                     </div>
                     <p className="leading-6 text-slate-300">
-                      Practicing threat detection basics and writing cleaner
-                      project notes so recruiters can understand the work fast.
+                      Practicing Blue Team investigations, alert triage, and
+                      clear incident notes that show how I approach security
+                      problems.
                     </p>
                   </div>
                 </div>
@@ -276,15 +278,14 @@ export default function Home() {
           <Reveal>
             <SectionHeading
               eyebrow="About"
-              title="A security-focused builder with a design-informed background."
-              description="I am currently studying at Lovely Professional University and building my path in cybersecurity and cloud security. My earlier interior design background shaped how I think about structure, clarity, and user experience, and that perspective now supports my transition into security."
+              title="A Blue Team-focused cybersecurity student building cloud security fundamentals."
+              description="I am currently studying at Lovely Professional University and building my path in Blue Team operations, SOC workflows, and cloud security. My focus is on understanding alerts, logs, cloud configuration, and practical investigation habits."
             />
             <p className="mt-6 max-w-2xl text-base leading-7 text-muted">
-              My interests sit around SOC operations, AWS, secure cloud
-              deployment, vulnerability assessment, and threat detection. I like
-              working on practical projects that turn security concepts into
-              visible, usable systems. I also practice regularly on TryHackMe to
-              build stronger hands-on investigation and problem-solving habits.
+              My interests sit around SOC operations, AWS security, secure cloud
+              configuration, log analysis, and threat detection. I practice with
+              security labs and small projects that help me understand how
+              defenders investigate, prioritize, and document security events.
             </p>
           </Reveal>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -302,8 +303,8 @@ export default function Home() {
           <Reveal>
             <SectionHeading
               eyebrow="Skills"
-              title="Security, cloud, and development foundations."
-              description="A focused toolkit for analyzing systems, deploying cloud infrastructure, and building polished interfaces."
+              title="Blue Team, cloud security, and practical lab foundations."
+              description="A focused toolkit for investigating alerts, reading logs, reviewing cloud configuration, and understanding attacker behavior at a basic level."
             />
           </Reveal>
           <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -397,8 +398,8 @@ export default function Home() {
         <Reveal>
           <SectionHeading
             eyebrow="Projects"
-            title="Practical work across security, cloud, research, and innovation."
-            description="Selected projects presented with the same clarity expected from a modern security consultant portfolio."
+            title="Security projects focused on defense, detection, and cloud security."
+            description="Selected work centered on Blue Team practice, SOC-style investigation, cloud security basics, and security risk review."
           />
         </Reveal>
         <ProjectShowcase projects={projects} />
@@ -422,8 +423,8 @@ export default function Home() {
           <Reveal>
             <SectionHeading
               eyebrow="Contact"
-              title="Let's connect about security, cloud, or practical projects."
-              description="Open to project discussions, collaboration, internships, and learning opportunities in cybersecurity and cloud security."
+              title="Let's connect about Blue Team, SOC, or cloud security opportunities."
+              description="Open to internships, learning opportunities, and security projects related to defensive operations and cloud security."
             />
             <div className="mt-8">
               <SocialLinks align="start" compact />

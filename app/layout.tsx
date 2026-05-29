@@ -6,22 +6,23 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Niranjan Reddy | Cybersecurity & Cloud Security Portfolio",
   description:
-    "Portfolio of Niranjan Reddy, a cybersecurity student and cloud security enthusiast focused on SOC operations, AWS, vulnerability assessment, and threat detection.",
+    "Portfolio of Niranjan Reddy, a cybersecurity student focused on Blue Team operations, SOC workflows, AWS security, and cloud security fundamentals.",
   keywords: [
     "Niranjan Reddy",
     "Cybersecurity",
+    "Blue Team",
     "Cloud Security",
     "AWS",
     "SOC Operations",
-    "Vulnerability Assessment",
-    "Next.js Portfolio",
+    "SIEM",
+    "Incident Response",
   ],
   authors: [{ name: "Niranjan Reddy" }],
   creator: "Niranjan Reddy",
   openGraph: {
     title: "Niranjan Reddy | Cybersecurity & Cloud Security Portfolio",
     description:
-      "Cybersecurity student and cloud security enthusiast focused on SOC operations, AWS, vulnerability assessment, and threat detection.",
+      "Cybersecurity student focused on Blue Team operations, SOC workflows, AWS security, and cloud security fundamentals.",
     type: "website",
   },
 };
