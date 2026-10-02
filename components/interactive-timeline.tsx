@@ -1,9 +1,10 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 
+import { gentleSpring, smoothEase } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 type TimelineItem = {
@@ -18,6 +19,7 @@ type InteractiveTimelineProps = {
 
 export function InteractiveTimeline({ items }: InteractiveTimelineProps) {
   const [openItem, setOpenItem] = useState(items[0]?.title);
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <div className="mt-12 space-y-4 border-l border-border pl-6">
@@ -25,12 +27,12 @@ export function InteractiveTimeline({ items }: InteractiveTimelineProps) {
         const isOpen = openItem === item.title;
 
         return (
-          <div key={item.title} className="relative">
+          <motion.div key={item.title} layout transition={gentleSpring} className="relative">
             <span className="absolute -left-[31px] top-5 h-3 w-3 rounded-full border border-accent bg-background" />
             <button
               type="button"
               onClick={() => setOpenItem(isOpen ? "" : item.title)}
-              className="flex w-full items-start justify-between gap-4 rounded-lg border border-border bg-white/[0.025] p-4 text-left transition-colors hover:bg-white/[0.05] focus:outline-none focus:ring-2 focus:ring-accent"
+              className="flex w-full items-start justify-between gap-4 rounded-lg border border-border bg-white/[0.025] p-4 text-left transition-[background-color,border-color,box-shadow,transform] duration-300 ease-out hover:-translate-y-0.5 hover:bg-white/[0.05] focus:outline-none focus:ring-2 focus:ring-accent"
             >
               <span>
                 <span className="block text-lg font-semibold tracking-tight">
@@ -42,7 +44,7 @@ export function InteractiveTimeline({ items }: InteractiveTimelineProps) {
               </span>
               <ChevronDown
                 className={cn(
-                  "mt-1 h-5 w-5 shrink-0 text-muted transition-transform",
+                  "mt-1 h-5 w-5 shrink-0 text-muted transition-[color,transform] duration-300 ease-out",
                   isOpen && "rotate-180 text-accent",
                 )}
                 aria-hidden="true"
@@ -51,10 +53,18 @@ export function InteractiveTimeline({ items }: InteractiveTimelineProps) {
             <AnimatePresence>
               {isOpen ? (
                 <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.25 }}
+                  initial={shouldReduceMotion ? { opacity: 0 } : { height: 0, opacity: 0, y: -8 }}
+                  animate={{ height: "auto", opacity: 1, y: 0 }}
+                  exit={shouldReduceMotion ? { opacity: 0 } : { height: 0, opacity: 0, y: -8 }}
+                  transition={
+                    shouldReduceMotion
+                      ? { duration: 0.16 }
+                      : {
+                          height: gentleSpring,
+                          opacity: { duration: 0.25, ease: smoothEase },
+                          y: gentleSpring,
+                        }
+                  }
                   className="overflow-hidden"
                 >
                   <p className="px-4 pb-4 pt-3 text-sm leading-6 text-slate-300">
@@ -63,7 +73,7 @@ export function InteractiveTimeline({ items }: InteractiveTimelineProps) {
                 </motion.div>
               ) : null}
             </AnimatePresence>
-          </div>
+          </motion.div>
         );
       })}
     </div>

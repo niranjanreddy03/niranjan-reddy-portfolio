@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useMemo, useState } from "react";
 
 import { GitHubIcon } from "@/components/brand-icons";
@@ -15,6 +15,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { smoothEase, softLayoutSpring } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 export type Project = {
@@ -30,6 +31,7 @@ type ProjectShowcaseProps = {
 };
 
 export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
+  const shouldReduceMotion = useReducedMotion();
   const categories = useMemo(
     () => ["All", ...Array.from(new Set(projects.map((project) => project.category)))],
     [projects],
@@ -49,7 +51,7 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
             type="button"
             onClick={() => setActiveCategory(category)}
             className={cn(
-              "rounded-full border px-4 py-2 text-sm font-medium transition-all",
+              "rounded-full border px-4 py-2 text-sm font-medium transition-all duration-300 ease-out hover:-translate-y-0.5 active:translate-y-0",
               activeCategory === category
                 ? "border-accent bg-accent-soft text-foreground"
                 : "border-border bg-white/[0.03] text-muted hover:border-accent/60 hover:text-foreground",
@@ -60,18 +62,22 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
         ))}
       </div>
 
-      <motion.div layout className="mt-8 grid gap-5 md:grid-cols-2">
-        <AnimatePresence mode="popLayout">
+      <motion.div layout transition={softLayoutSpring} className="mt-8 grid gap-5 md:grid-cols-2">
+        <AnimatePresence mode="popLayout" initial={false}>
           {filteredProjects.map((project) => (
             <motion.div
               key={project.title}
               layout
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -18 }}
-              transition={{ duration: 0.25 }}
+              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -14, scale: 0.98 }}
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0.18 }
+                  : { layout: softLayoutSpring, opacity: { duration: 0.32, ease: smoothEase }, y: softLayoutSpring, scale: softLayoutSpring }
+              }
             >
-              <Card className="group h-full transition-colors duration-300 hover:bg-white/[0.05]">
+              <Card className="group h-full transition-[background-color,border-color,box-shadow,transform] duration-300 ease-out hover:-translate-y-1 hover:bg-white/[0.05] hover:shadow-[0_22px_60px_rgba(0,0,0,0.25)]">
                 <CardHeader>
                   <CardTitle className="flex items-start justify-between gap-4">
                     {project.title}

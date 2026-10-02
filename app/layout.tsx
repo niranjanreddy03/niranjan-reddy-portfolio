@@ -19,6 +19,20 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Niranjan Reddy" }],
   creator: "Niranjan Reddy",
+  icons: {
+    icon: [
+      {
+        url: "/profile-favicon.jpg",
+        type: "image/jpeg",
+      },
+    ],
+    apple: [
+      {
+        url: "/profile-favicon.jpg",
+        type: "image/jpeg",
+      },
+    ],
+  },
   openGraph: {
     title: "Niranjan Reddy | Cybersecurity & Cloud Security Portfolio",
     description:

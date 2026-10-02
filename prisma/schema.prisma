@@ -1,0 +1,247 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                   String                 @id @default(cuid())
+  email                String                 @unique
+  name                 String?
+  googleSub            String?                @unique
+  workspaceVersion     Int                    @default(0)
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+  accounts             Account[]
+  transactions         Transaction[]
+  categories           Category[]
+  merchants            Merchant[]
+  budgets              Budget[]
+  recurringTransactions RecurringTransaction[]
+  subscriptions        Subscription[]
+  goals                FinancialGoal[]
+  paymentMethods       PaymentMethod[]
+  notifications        Notification[]
+  imports              Import[]
+  receipts             Receipt[]
+  auditEvents          AuditEvent[]
+  sharedExpenses       SharedExpense[]
+}
+
+model SharedExpense {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  person      String
+  description String
+  amountPaise Int
+  direction   String
+  occurredAt  DateTime
+  settled     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  @@index([userId, occurredAt])
+}
+
+model Account {
+  id            String        @id @default(cuid())
+  userId        String
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name          String
+  kind          String
+  balancePaise  Int           @default(0)
+  creditLimitPaise Int?
+  statementDay  Int?
+  dueDay        Int?
+  minimumDuePaise Int?
+  paymentStatus String?
+  color         String?
+  createdAt     DateTime      @default(now())
+  transactions  Transaction[]
+  @@index([userId])
+}
+
+model Category {
+  id           String           @id @default(cuid())
+  userId       String
+  user         User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name         String
+  parentId     String?
+  parent       Category?        @relation("CategoryTree", fields: [parentId], references: [id])
+  children     Category[]       @relation("CategoryTree")
+  color        String?
+  icon         String?
+  transactions Transaction[]
+  budgetLines  BudgetCategory[]
+  recurring    RecurringTransaction[]
+  @@unique([userId, name])
+  @@index([parentId])
+}
+
+model Merchant {
+  id           String        @id @default(cuid())
+  userId       String
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name         String
+  transactions Transaction[]
+  @@unique([userId, name])
+}
+
+model PaymentMethod {
+  id           String        @id @default(cuid())
+  userId       String
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name         String
+  transactions Transaction[]
+  @@unique([userId, name])
+}
+
+model Transaction {
+  id              String        @id @default(cuid())
+  userId          String
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accountId       String
+  account         Account       @relation(fields: [accountId], references: [id])
+  categoryId      String?
+  category        Category?     @relation(fields: [categoryId], references: [id])
+  merchantId      String?
+  merchant        Merchant?     @relation(fields: [merchantId], references: [id])
+  paymentMethodId String?
+  paymentMethod   PaymentMethod? @relation(fields: [paymentMethodId], references: [id])
+  amountPaise     Int
+  type            String
+  intent          String?
+  note            String?
+  occurredAt      DateTime
+  createdAt       DateTime      @default(now())
+  importId        String?
+  import          Import?       @relation(fields: [importId], references: [id])
+  receipt         Receipt?
+  @@index([userId, occurredAt])
+  @@index([userId, merchantId, occurredAt])
+  @@index([accountId])
+  @@index([categoryId])
+  @@index([paymentMethodId])
+  @@index([importId])
+}
+
+model Budget {
+  id           String           @id @default(cuid())
+  userId       String
+  user         User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  month        DateTime
+  amountPaise  Int
+  categories   BudgetCategory[]
+  @@unique([userId, month])
+}
+
+model BudgetCategory {
+  id          String   @id @default(cuid())
+  budgetId    String
+  budget      Budget   @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id])
+  amountPaise Int
+  @@unique([budgetId, categoryId])
+  @@index([categoryId])
+}
+
+model RecurringTransaction {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name        String
+  amountPaise Int
+  categoryId  String?
+  category    Category? @relation(fields: [categoryId], references: [id])
+  frequency   String
+  nextDueAt   DateTime
+  priority    String   @default("Normal")
+  active      Boolean  @default(true)
+  subscriptionId String?
+  @@index([userId, nextDueAt])
+  @@index([categoryId])
+}
+
+model Subscription {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name        String
+  amountPaise Int
+  status      String   @default("Active")
+  dueDay      Int
+  color       String?
+  accountId   String?
+  nextDueAt   DateTime?
+  @@index([userId, status])
+}
+
+model FinancialGoal {
+  id            String             @id @default(cuid())
+  userId        String
+  user          User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name          String
+  targetPaise   Int
+  savedPaise    Int                @default(0)
+  icon          String?
+  color         String?
+  contributions GoalContribution[]
+  @@index([userId])
+}
+
+model GoalContribution {
+  id          String        @id @default(cuid())
+  goalId      String
+  goal        FinancialGoal @relation(fields: [goalId], references: [id], onDelete: Cascade)
+  amountPaise Int
+  occurredAt  DateTime      @default(now())
+  @@index([goalId, occurredAt])
+}
+
+model Notification {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  kind        String
+  enabled     Boolean   @default(true)
+  readAt      DateTime?
+  createdAt   DateTime  @default(now())
+  @@index([userId, createdAt])
+}
+
+model Import {
+  id           String        @id @default(cuid())
+  userId       String
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  filename     String
+  status       String
+  rowCount     Int
+  createdAt    DateTime      @default(now())
+  transactions Transaction[]
+  @@index([userId, createdAt])
+}
+
+model Receipt {
+  id            String       @id @default(cuid())
+  userId        String
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactionId String?      @unique
+  transaction   Transaction? @relation(fields: [transactionId], references: [id])
+  fileKey       String
+  extractedJson Json?
+  createdAt     DateTime     @default(now())
+  @@index([userId, createdAt])
+}
+
+model AuditEvent {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  action     String
+  createdAt  DateTime @default(now())
+  metadata   Json?
+  @@index([userId, createdAt])
+}

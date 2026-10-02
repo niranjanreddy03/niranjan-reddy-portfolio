@@ -1,0 +1,138 @@
+.mf-app {
+  --mf-bg: #f8f4ed;
+  --mf-paper: #fffdf9;
+  --mf-ink: #1a2940;
+  --mf-muted: #738093;
+  --mf-line: #e9e0d6;
+  --mf-green: #c55c50;
+  --mf-soft: #fff0e8;
+  background: radial-gradient(circle at 88% 0%, #fbe9dc 0, transparent 32%), var(--mf-bg);
+  font-family: "DM Sans", "Segoe UI", sans-serif;
+  font-size: 14px;
+}
+
+.mf-app h1,.mf-app h2,.mf-app h3,
+.mf-brand,.mf-balance-number,.mf-stat-card strong,
+.mf-safe-card>strong,.mf-sub-hero strong,.mf-net-worth strong,
+.mf-shared-stats strong,.mf-account-card>strong {
+  font-family: "Space Grotesk", "DM Sans", sans-serif;
+}
+.mf-app h1 { font-weight: 700; letter-spacing: -.055em; }
+.mf-app h2 { font-weight: 700; }
+.mf-app button:focus-visible,.mf-app input:focus-visible,.mf-app select:focus-visible,.mf-app textarea:focus-visible { outline-color: #df806e; }
+.mf-sidebar,.mf-topbar,.mf-notification-popover { background: #fffdf9; }
+.mf-sidebar { box-shadow: 10px 0 34px #21314b08; }
+.mf-topbar { backdrop-filter: blur(14px); background: #fffdf9ed; }
+.mf-brand>span:last-child>span { color: #dc735f; }
+.mf-brand-mark { background: #e77763; box-shadow: 0 6px 14px #e7776340; }
+.mf-avatar,.mf-top-avatar { background: #f8dfd2; color: #9e493f; }
+.mf-nav-label,.mf-eyebrow { color: #b47262; }
+.mf-nav button { color: #667386; }
+.mf-nav button:hover,.mf-nav button.active { background: #fff0e8; color: #a44840; }
+.mf-nav button.active { box-shadow: inset 3px 0 #e77763; }
+.mf-nav button b,.mf-saved-pill { background: #fde8dc; color: #a64d42; }
+.mf-side-tip,.mf-search-trigger,.mf-search-field { background: #faf3eb; border-color: var(--mf-line); }
+.mf-side-tip span,.mf-side-tip p { color: #875849; }
+.mf-breadcrumb strong { color: var(--mf-ink); }
+.mf-icon-button:hover,.mf-notification-popover button:hover { background: #fff0e8; color: #a44840; }
+.mf-welcome p,.mf-page-head p { color: var(--mf-muted); }
+.mf-welcome h1 span { color: #e77763; }
+.mf-primary { background: #e77763; border-color: #e77763; color: #fff; border-radius: 10px; box-shadow: 0 8px 18px #e7776333; }
+.mf-primary:hover { background: #cb604f; border-color: #cb604f; }
+.mf-outline { border-color: var(--mf-line); border-radius: 10px; }
+.mf-outline:hover,.mf-text-button { border-color: #df8b7b; color: #b65347; }
+.mf-balance-card { background: linear-gradient(122deg,#172a46 4%,#284968 61%,#3d6b78 100%); box-shadow: 0 18px 36px #192d4950; }
+.mf-balance-card .mf-card-kicker,.mf-balance-card p,.mf-balance-number span { color: #d4e1e8; }
+.mf-balance-foot .mf-up-pill,.mf-balance-foot .mf-down-pill { color: #f3e4dc; }
+.mf-orb { border-color: #ffffff26; }
+.mf-stat-card,.mf-panel,.mf-account-card,.mf-goal-card,.mf-shared-stats>div,.mf-transaction-summary>span,.mf-small-stats>div { border-radius: 17px; box-shadow: 0 8px 25px #24344a0a; }
+.mf-card-kicker { color: #8d96a2; }
+.mf-up-pill,.mf-transaction>strong.mf-positive { color: #287c75; }
+.mf-progress { background: #efe9e2; }
+.mf-safe-card,.mf-budget-hero,.mf-sub-hero,.mf-net-worth,.mf-insight-banner { background: linear-gradient(125deg,#e9f0ec,#fbf2e8); border-color: #e3e6dc; border-radius: 17px; }
+.mf-safe-top,.mf-safe-label,.mf-safe-card>strong,.mf-budget-hero h2,.mf-sub-hero strong,.mf-net-worth strong,.mf-forecast-result strong { color: #1f5660; }
+.mf-safe-card>p,.mf-safe-rows div,.mf-budget-hero p,.mf-sub-hero p,.mf-net-worth p { color: #697c80; }
+.mf-safe-rows { border-color: #d8e1dd; }
+.mf-safe-rows b { color: #243e4a; }
+.mf-chart-legend i { background: #367e83; }
+.mf-merchant-symbol,.mf-command-list button span { background: #e6f0ec; color: #2b7374; }
+.mf-merchant-symbol:has(.mf-brand-icon),.mf-icon-bubble:has(.mf-brand-icon) { background: #fff !important; border: 1px solid var(--mf-line); }
+.mf-merchant-symbol .mf-brand-icon,.mf-icon-bubble .mf-brand-icon { max-width: 26px; max-height: 26px; }
+.mf-merchant-row:hover .mf-merchant-name,.mf-transaction-main button:hover { color: #b65347; }
+.mf-due-box { border-color: var(--mf-line); color: #2b6370; }
+.mf-presets-panel,.mf-sub-presets-panel { background: linear-gradient(110deg,#fff8f1,#fffdf9); border-color: #ecdcd0; border-radius: 17px; }
+.mf-preset-chips button,.mf-quick-presets button,.mf-account-presets button,.mf-sub-preset-grid button,.mf-sub-modal-presets button { border-color: #e8dcd2; border-radius: 11px; }
+.mf-preset-chips button:hover,.mf-quick-presets button:hover,.mf-account-presets button:hover,.mf-account-presets button.active,.mf-sub-preset-grid button:hover,.mf-sub-modal-presets button:hover,.mf-sub-modal-presets button.active { border-color: #e6a08e; background: #fff0e8; color: #a44840; }
+.mf-preset-brand,.mf-sub-preset-icon { display: grid; place-items: center; flex: none; width: 29px; height: 29px; border-radius: 9px; background: #fff; }
+.mf-brand-icon { display: block; flex: none; object-fit: contain; max-width: 100%; max-height: 100%; }
+.mf-sub-preset-icon .mf-brand-icon { width: 22px; height: 22px; }
+.mf-sub-preset-grid button { min-height: 48px; }
+.mf-sub-preset-grid button>svg:last-child,.mf-preset-chips button>svg:last-child { color: #bd7767; }
+.mf-sub-icon { background: #fff !important; border: 1px solid var(--mf-line); }
+.mf-sub-icon .mf-brand-icon { width: 24px; height: 24px; }
+.mf-sub-account-select { min-width: 135px; max-width: 170px; }
+.mf-sub-debit-note { font-size: 11px; line-height: 1.5; color: var(--mf-muted); }
+.mf-auto-debit { display: inline-flex; align-items: center; border-radius: 8px; padding: 7px 9px; background: #e4f1ed; color: #246c68; font-size: 10px; font-weight: 700; white-space: nowrap; }
+.mf-account-mark:has(.mf-brand-icon) { width: 58px; height: 48px; background: #fff !important; border: 1px solid var(--mf-line); padding: 7px; }
+.mf-account-mark .mf-brand-icon { width: 100%; height: 100%; }
+.mf-sub-modal-presets button { display: inline-flex; align-items: center; gap: 7px; }
+.mf-shared-note { background: #f3f4ee; border-color: #e3e4da; color: #4c6870; }
+.mf-shared-direction,.mf-shared-tabs { background: #f1ebe5; }
+.mf-shared-direction button.active,.mf-shared-tabs button.active { color: #a44840; background: #fffdf9; }
+.mf-shared-person-icon { background: #e3efec; color: #297c75; }
+.mf-shared-row>b,.mf-shared-row-main small { color: #277b75; }
+.mf-toggle.active { background: #e77763; }
+.mf-calendar-grid>button { background: #fffbf6; border-color: var(--mf-line); }
+.mf-calendar-grid>button:hover { border-color: #e77763; }
+.mf-modal-backdrop { background: #12213acc; }
+.mf-modal { border-radius: 20px; box-shadow: 0 32px 90px #14243a66; }
+.mf-modal-close,.mf-natural,.mf-merchant-stats>div,.mf-receipt-result { background: #faf3eb; }
+.mf-entry-tabs button.active,.mf-amount-label>span { color: #b65347; border-bottom-color: #e77763; }
+.mf-entry-form label,.mf-simple-form label { color: #56677a; }
+.mf-entry-form input,.mf-simple-form input,.mf-entry-form select,.mf-simple-form select,.mf-account-card input { border-color: var(--mf-line); border-radius: 9px; }
+.mf-checkbox input { accent-color: #e77763; }
+.mf-toast { background: #172a46; box-shadow: 0 16px 32px #172a4655; }
+.mf-mobile-nav button.active { color: #b65347; }
+.mf-mobile-nav button.mf-mobile-plus { background: #e77763; box-shadow: 0 8px 18px #e7776360; }
+
+.mf-signin-page { background: radial-gradient(circle at 50% 5%,#fce0d1 0,transparent 39%),#f8f4ed; color: #1a2940; font-family: "DM Sans","Segoe UI",sans-serif; }
+.mf-signin-card { background: #fffdf9; border-color: #e9e0d6; border-radius: 22px; box-shadow: 0 25px 80px #24344a1c; }
+.mf-signin-card h1 { font-family: "Space Grotesk","DM Sans",sans-serif; color: #1a2940; }
+.mf-signin-card p { color: #738093; }
+.mf-signin-mark { background: #fce4d9; color: #bb5a4c; }
+.mf-back-link,.mf-auth-switch { color: #ae5b4c; }
+.mf-signin-card label { color: #56677a; }
+.mf-signin-card input { border-color: #e9e0d6; color: #1a2940; background: #fffdf9; }
+.mf-google-button { border-color: #e9e0d6; color: #1a2940; background: #fffdf9; border-radius: 10px; }
+.mf-google-button:hover { background: #fff0e8; border-color: #e6a08e; }
+
+.mf-dark {
+  --mf-bg: #111c2d;
+  --mf-paper: #1a2940;
+  --mf-ink: #f1f1ed;
+  --mf-muted: #a7b4c3;
+  --mf-line: #31415a;
+  --mf-soft: #3c3040;
+  background: #111c2d;
+}
+.mf-dark .mf-sidebar,.mf-dark .mf-topbar,.mf-dark .mf-notification-popover { background: #18263b; }
+.mf-dark .mf-nav button:hover,.mf-dark .mf-nav button.active,.mf-dark .mf-side-tip,.mf-dark .mf-search-trigger,.mf-dark .mf-search-field,.mf-dark .mf-natural,.mf-dark .mf-merchant-stats>div,.mf-dark .mf-command-list button:hover { background: #28384e; }
+.mf-dark .mf-nav button.active,.mf-dark .mf-nav button:hover { color: #f7b6a4; }
+.mf-dark .mf-presets-panel,.mf-dark .mf-sub-presets-panel,.mf-dark .mf-shared-note,.mf-dark .mf-safe-card,.mf-dark .mf-budget-hero,.mf-dark .mf-sub-hero,.mf-dark .mf-net-worth,.mf-dark .mf-insight-banner { background: #22364b; border-color: var(--mf-line); }
+.mf-dark .mf-safe-card>strong,.mf-dark .mf-budget-hero h2,.mf-dark .mf-sub-hero strong,.mf-dark .mf-net-worth strong { color: #9bd6d2; }
+.mf-dark .mf-safe-card>p,.mf-dark .mf-safe-rows div,.mf-dark .mf-budget-hero p,.mf-dark .mf-sub-hero p,.mf-dark .mf-net-worth p { color: #a7b4c3; }
+.mf-dark .mf-preset-chips button,.mf-dark .mf-quick-presets button,.mf-dark .mf-account-presets button,.mf-dark .mf-sub-preset-grid button,.mf-dark .mf-sub-modal-presets button { border-color: var(--mf-line); }
+.mf-dark .mf-preset-chips button:hover,.mf-dark .mf-quick-presets button:hover,.mf-dark .mf-account-presets button:hover,.mf-dark .mf-account-presets button.active,.mf-dark .mf-sub-preset-grid button:hover,.mf-dark .mf-sub-modal-presets button:hover,.mf-dark .mf-sub-modal-presets button.active { background: #3a3446; border-color: #a8615c; color: #ffd2c3; }
+.mf-dark .mf-shared-direction,.mf-dark .mf-shared-tabs { background: #26364c; }
+.mf-dark .mf-shared-direction button.active,.mf-dark .mf-shared-tabs button.active { background: #3c4b61; color: #ffd2c3; }
+.mf-dark .mf-modal-close,.mf-dark .mf-receipt-result { background: #28384e; }
+.mf-dark .mf-calendar-grid>button { background: #22334a; }
+.mf-dark .mf-auto-debit { background: #264d52; color: #b0e6df; }
+
+@media(max-width:650px) {
+  .mf-preset-chips button { justify-content: flex-start; }
+  .mf-preset-chips button>svg:last-child { margin-left: auto; }
+  .mf-sub-preset-grid button { justify-content: flex-start; }
+  .mf-sub-preset-grid button>svg:last-child { margin-left: auto; }
+  .mf-sub-account-select { min-width: 0; max-width: none; flex: 1; }
+}
