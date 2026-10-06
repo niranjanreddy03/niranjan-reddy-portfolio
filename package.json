@@ -7,6 +7,9 @@
     "build": "next build",
     "start": "next start",
     "moneyflow:init": "node scripts/init-moneyflow-sqlite.mjs",
+    "moneyflow:setup-hosted": "node scripts/setup-moneyflow-turso.mjs",
+    "moneyflow:export-hosted": "node scripts/export-moneyflow-sqlite.mjs",
+    "amplify:prepare-env": "node scripts/write-amplify-runtime-env.mjs",
     "moneyflow:provision": "node scripts/provision-moneyflow-user.mjs",
     "lint": "eslint . --ext .ts,.tsx"
   },
@@ -14,6 +17,8 @@
     "@fontsource/dm-sans": "^5.3.0",
     "@fontsource/space-grotesk": "^5.3.0",
     "@hookform/resolvers": "^5.9.1",
+    "@libsql/client": "^0.8.1",
+    "@prisma/adapter-libsql": "^6.19.0",
     "@prisma/client": "^6.19.0",
     "@radix-ui/react-slot": "^1.1.0",
     "class-variance-authority": "^0.7.1",
