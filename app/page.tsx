@@ -20,7 +20,29 @@ export default function Home() {
           <div className="portfolio-hero-meta">
             <span>CYBERSECURITY PORTFOLIO / 2026</span>
           </div>
-          <h1 id="hero-title">Niranjan<br /><span>Reddy.</span></h1>
+          <div className="portfolio-hero-title-row">
+            <h1 id="hero-title">Niranjan<br /><span>Reddy.</span></h1>
+            <div className="portfolio-radar" aria-hidden="true">
+              <div className="portfolio-radar-heading">
+                <span>NR / SIGNAL 001</span>
+                <span className="portfolio-radar-live"><i /> LIVE</span>
+              </div>
+              <div className="portfolio-radar-field">
+                <div className="portfolio-radar-sweep" />
+                <span className="portfolio-radar-ring portfolio-radar-ring-one" />
+                <span className="portfolio-radar-ring portfolio-radar-ring-two" />
+                <span className="portfolio-radar-axis portfolio-radar-axis-x" />
+                <span className="portfolio-radar-axis portfolio-radar-axis-y" />
+                <span className="portfolio-radar-center" />
+                <span className="portfolio-radar-point portfolio-radar-point-one" />
+                <span className="portfolio-radar-point portfolio-radar-point-two" />
+                <span className="portfolio-radar-point portfolio-radar-point-three" />
+                <span className="portfolio-radar-coordinate portfolio-radar-coordinate-top">SYS / 01</span>
+                <span className="portfolio-radar-coordinate portfolio-radar-coordinate-bottom">SCAN / 360°</span>
+              </div>
+              <div className="portfolio-radar-footer"><span>DETECT</span><span>DEFEND</span><span>BUILD</span></div>
+            </div>
+          </div>
           <div className="portfolio-hero-content">
             <div>
               <p className="portfolio-role">Blue Team <span>/</span> Cloud Security</p>
