@@ -2,6 +2,13 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import "./globals.css";
+import "./portfolio.css";
+import "@fontsource/dm-sans/400.css";
+import "@fontsource/dm-sans/500.css";
+import "@fontsource/dm-sans/600.css";
+import "@fontsource/space-grotesk/500.css";
+import "@fontsource/space-grotesk/600.css";
+import "@fontsource/space-grotesk/700.css";
 
 export const metadata: Metadata = {
   title: "Niranjan Reddy | Cybersecurity & Cloud Security Portfolio",
@@ -20,18 +27,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Niranjan Reddy" }],
   creator: "Niranjan Reddy",
   icons: {
-    icon: [
-      {
-        url: "/profile-favicon.jpg",
-        type: "image/jpeg",
-      },
-    ],
-    apple: [
-      {
-        url: "/profile-favicon.jpg",
-        type: "image/jpeg",
-      },
-    ],
+    icon: "/favicon.svg",
   },
   openGraph: {
     title: "Niranjan Reddy | Cybersecurity & Cloud Security Portfolio",

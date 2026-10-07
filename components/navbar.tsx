@@ -1,67 +1,50 @@
 "use client";
 
 import Link from "next/link";
-import { Menu } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { useState } from "react";
 
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-
-const navItems = [
-  { href: "#about", label: "About" },
-  { href: "#skills", label: "Skills" },
-  { href: "#certifications", label: "Certifications" },
-  { href: "#projects", label: "Projects" },
-  { href: "#experience", label: "Experience" },
-  { href: "#contact", label: "Contact" },
+const items = [
+  { href: "/about", label: "About" },
+  { href: "/projects", label: "Work" },
+  { href: "/skills", label: "Skills" },
+  { href: "/credentials", label: "Credentials" },
+  { href: "/experience", label: "Experience" },
+  { href: "/journey", label: "Journey" },
 ];
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-background/72 backdrop-blur-xl">
-      <nav className="container flex h-16 items-center justify-between">
-        <Link href="#home" className="text-sm font-semibold tracking-tight">
-          Niranjan Reddy
+    <header className="portfolio-nav">
+      <nav className="portfolio-shell portfolio-nav-inner" aria-label="Main navigation">
+        <Link className="portfolio-logo" href="/" onClick={() => setOpen(false)}>
+          NIRANJAN<span>.</span>
         </Link>
-        <div className="hidden items-center gap-1 md:flex">
-          {navItems.map((item) => (
-            <Button key={item.href} asChild variant="ghost" size="sm">
-              <Link href={item.href}>{item.label}</Link>
-            </Button>
-          ))}
+        <div className="portfolio-nav-links">
+          {items.map((item) => <Link href={item.href} key={item.href} aria-current={pathname === item.href ? "page" : undefined} className={pathname === item.href ? "is-active" : ""}>{item.label}</Link>)}
         </div>
-        <Button
-          aria-label="Toggle navigation"
-          className="md:hidden"
-          size="sm"
-          variant="ghost"
-          onClick={() => setOpen((value) => !value)}
+        <Link className={`portfolio-nav-contact ${pathname === "/contact" ? "is-active" : ""}`} href="/contact" aria-current={pathname === "/contact" ? "page" : undefined}>Contact <ArrowUpRight size={17} /></Link>
+        <button
+          type="button"
+          className="portfolio-menu-toggle"
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+          aria-controls="portfolio-mobile-menu"
+          onClick={() => setOpen(!open)}
         >
-          <Menu className="h-5 w-5" />
-        </Button>
+          {open ? <X size={23} /> : <Menu size={23} />}
+        </button>
       </nav>
-      <div
-        className={cn(
-          "container grid overflow-hidden transition-all md:hidden",
-          open ? "grid-rows-[1fr] pb-4" : "grid-rows-[0fr]",
-        )}
-      >
-        <div className="min-h-0">
-          <div className="flex flex-col gap-1 rounded-lg border border-border bg-white/[0.03] p-2">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="rounded-md px-3 py-2 text-sm text-muted hover:bg-white/[0.06] hover:text-foreground"
-                onClick={() => setOpen(false)}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
-        </div>
+      <div id="portfolio-mobile-menu" className={`portfolio-mobile-menu ${open ? "is-open" : ""}`}>
+        {[...items, { href: "/contact", label: "Contact" }].map((item) => (
+          <Link href={item.href} key={item.href} onClick={() => setOpen(false)} aria-current={pathname === item.href ? "page" : undefined}>
+            {item.label}<ArrowUpRight size={17} />
+          </Link>
+        ))}
       </div>
     </header>
   );
