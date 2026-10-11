@@ -12,6 +12,7 @@ if (process.env.DATABASE_URL !== "file:./moneyflow.db") {
 const databasePath = resolve("prisma", "moneyflow.db");
 const migrationPath = resolve("prisma", "migrations", "20261002_moneyflow_init", "migration.sql");
 const sharedExpensesMigrationPath = resolve("prisma", "migrations", "20261002_moneyflow_shared_expenses", "migration.sql");
+const contactRequestsMigrationPath = resolve("prisma", "migrations", "20261011_contact_requests", "migration.sql");
 const isNewDatabase = !existsSync(databasePath);
 const database = new DatabaseSync(databasePath);
 try {
@@ -23,6 +24,7 @@ try {
   if (!subscriptionColumns.has("accountId")) database.exec('ALTER TABLE "Subscription" ADD COLUMN "accountId" TEXT;');
   if (!subscriptionColumns.has("nextDueAt")) database.exec('ALTER TABLE "Subscription" ADD COLUMN "nextDueAt" DATETIME;');
   if (!recurringColumns.has("subscriptionId")) database.exec('ALTER TABLE "RecurringTransaction" ADD COLUMN "subscriptionId" TEXT;');
+  database.exec(readFileSync(contactRequestsMigrationPath, "utf8"));
   console.log(isNewDatabase ? "MoneyFlow SQLite database created at prisma/moneyflow.db." : "MoneyFlow SQLite schema updated; existing data preserved.");
 } finally {
   database.close();

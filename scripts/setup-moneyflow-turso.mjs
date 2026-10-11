@@ -20,6 +20,7 @@ try {
     "20261002_moneyflow_init",
     "20261002_moneyflow_shared_expenses",
     "20261002_moneyflow_subscription_debits",
+    "20261011_contact_requests",
   ]) {
     const sql = readFileSync(resolve("prisma", "migrations", folder, "migration.sql"), "utf8");
     await client.executeMultiple(sql);

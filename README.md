@@ -18,6 +18,10 @@ npm run dev
 
 Open `http://localhost:3000` in your browser.
 
+## Contact form
+
+The contact page submits messages to the app's `/api/contact` endpoint and saves them in SQLite/Turso. View them at `https://niranjanreddy.tech/requests` with portfolio-only Google SSO. Configure a separate Google OAuth client with `CONTACT_GOOGLE_CLIENT_ID`, `CONTACT_GOOGLE_CLIENT_SECRET`, `CONTACT_ALLOWED_EMAIL`, `CONTACT_AUTH_SECRET` (at least 32 random characters), and `CONTACT_PUBLIC_ORIGIN=https://niranjanreddy.tech` in the production hosting environment, then redeploy. Register `https://niranjanreddy.tech/api/contact/auth/google/callback` as that client's authorized redirect URI. MoneyFlow's OAuth credentials and session are separate. The requests table is created automatically on first use. The portfolio server also needs the hosted database settings (`TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN`) so requests persist across deployments. No message delivery service or email activation is required.
+
 ## Moodify preview
 
 Moodify is available at `http://localhost:3000/moodify`. It runs with a curated local track library, so Apple Music credentials are not needed to try the mood-to-playlist flow. Without a connection, track actions open Apple Music search.

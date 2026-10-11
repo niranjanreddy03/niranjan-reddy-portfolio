@@ -1,16 +1,10 @@
-import { PrismaClient } from "@prisma/client";
-import { PrismaLibSQL } from "@prisma/adapter-libsql";
 import { SignJWT, jwtVerify } from "jose";
 import type { NextRequest, NextResponse } from "next/server";
+import { db } from "@/lib/database";
 
-const globalPrisma = globalThis as unknown as { moneyflowPrisma?: PrismaClient };
 const tursoUrl = process.env.TURSO_DATABASE_URL;
 const tursoToken = process.env.TURSO_AUTH_TOKEN;
-if (Boolean(tursoUrl) !== Boolean(tursoToken)) throw new Error("Set both TURSO_DATABASE_URL and TURSO_AUTH_TOKEN");
-export const db = globalPrisma.moneyflowPrisma ?? (tursoUrl && tursoToken
-  ? new PrismaClient({ adapter: new PrismaLibSQL({ url: tursoUrl, authToken: tursoToken }) })
-  : new PrismaClient());
-if (process.env.NODE_ENV !== "production") globalPrisma.moneyflowPrisma = db;
+export { db };
 
 const cookieName = "moneyflow_session";
 const secret = () => {

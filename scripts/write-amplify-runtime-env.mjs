@@ -15,6 +15,11 @@ const names = [
   "APPLE_MUSIC_KEY_ID",
   "APPLE_MUSIC_PRIVATE_KEY_BASE64",
   "APPLE_MUSIC_ALLOWED_ORIGINS",
+  "CONTACT_GOOGLE_CLIENT_ID",
+  "CONTACT_GOOGLE_CLIENT_SECRET",
+  "CONTACT_ALLOWED_EMAIL",
+  "CONTACT_AUTH_SECRET",
+  "CONTACT_PUBLIC_ORIGIN",
 ];
 
 const lines = names.flatMap((name) => process.env[name] ? [`${name}=${JSON.stringify(process.env[name])}`] : []);
