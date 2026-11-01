@@ -2,12 +2,14 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 
 import { Navbar } from "@/components/navbar";
+import { CvDownloadModal } from "@/components/cv-download-modal";
 
 export function PortfolioFrame({ children }: { children: ReactNode }) {
   return (
     <main className="portfolio">
       <Navbar />
       {children}
+      <CvDownloadModal />
       <footer className="portfolio-footer">
         <div className="portfolio-shell">
           <span>© 2026 Niranjan Reddy</span>
