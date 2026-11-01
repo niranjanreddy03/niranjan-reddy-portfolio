@@ -2,6 +2,7 @@ import { SignJWT, jwtVerify } from "jose";
 import type { NextRequest, NextResponse } from "next/server";
 
 export const contactSessionCookie = "contact_inbox_session";
+const allowedInboxEmail = "indukuriniranjanreddy@gmail.com";
 
 export function contactPublicOrigin(request: NextRequest) {
   try {
@@ -14,7 +15,6 @@ export function contactPublicOrigin(request: NextRequest) {
 }
 
 export function contactInboxConfigured() {
-  const email = process.env.CONTACT_ALLOWED_EMAIL?.trim() ?? "";
   const publicOrigin = process.env.CONTACT_PUBLIC_ORIGIN;
   let validOrigin = process.env.NODE_ENV !== "production" && !publicOrigin;
   if (publicOrigin) {
@@ -30,7 +30,6 @@ export function contactInboxConfigured() {
     process.env.CONTACT_GOOGLE_CLIENT_SECRET &&
     process.env.CONTACT_AUTH_SECRET &&
     process.env.CONTACT_AUTH_SECRET.length >= 32 &&
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
     validOrigin,
   );
 }
@@ -42,7 +41,7 @@ function signingKey() {
 }
 
 export function contactAllowedEmail() {
-  return process.env.CONTACT_ALLOWED_EMAIL?.trim().toLowerCase() ?? "";
+  return allowedInboxEmail;
 }
 
 export async function contactInboxSession(token?: string) {
