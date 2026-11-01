@@ -67,7 +67,7 @@ export default async function RequestsPage({ searchParams }: { searchParams: Pro
                     {request.email ? (
                       <a href={`mailto:${request.email}`} className="text-sm text-blue-700 hover:underline">{request.email}</a>
                     ) : (
-                      <span className="text-sm text-slate-500">Quick message · no email provided</span>
+                      <span className="text-sm text-slate-500">No email provided</span>
                     )}
                   </div>
                   <time dateTime={request.createdAt.toISOString()} className="text-xs font-medium text-slate-500">
