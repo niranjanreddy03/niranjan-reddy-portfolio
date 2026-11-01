@@ -17,7 +17,7 @@ export function ContactInboxSignOut() {
 
   return (
     <div className="text-right">
-      <button onClick={signOut} className="text-sm text-slate-400 hover:text-white">Sign out</button>
+      <button onClick={signOut} className="text-sm font-medium text-slate-500 transition-colors hover:text-slate-900">Sign out</button>
       {error && <p role="alert" className="text-xs text-red-400">Could not sign out. Try again.</p>}
     </div>
   );
