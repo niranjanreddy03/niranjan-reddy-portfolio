@@ -13,7 +13,10 @@ import {
 
 export function ContactForm() {
   const [status, setStatus] = useState<{ message: string; error: boolean } | null>(null);
+  const [quickStatus, setQuickStatus] = useState<{ message: string; error: boolean } | null>(null);
+  const [quickMessage, setQuickMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [quickSubmitting, setQuickSubmitting] = useState(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -47,6 +50,29 @@ export function ContactForm() {
       setStatus({ message: "Could not submit your request. Please try again.", error: true });
     } finally {
       setSubmitting(false);
+    }
+  }
+
+  async function handleQuickSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const message = quickMessage.trim();
+    if (!message) return;
+
+    setQuickStatus(null);
+    setQuickSubmitting(true);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ name: "Quick message", email: "", message }),
+      });
+      if (!response.ok) throw new Error("Quick message submission failed");
+      setQuickMessage("");
+      setQuickStatus({ message: "Quick message sent. Thanks for reaching out!", error: false });
+    } catch {
+      setQuickStatus({ message: "Could not send your message. Please try again.", error: true });
+    } finally {
+      setQuickSubmitting(false);
     }
   }
 
@@ -115,6 +141,28 @@ export function ContactForm() {
             ) : null}
           </div>
         </form>
+        <div className="mt-6 border-t border-border pt-5">
+          <h3 className="text-sm font-semibold">Quick message</h3>
+          <p className="mt-1 text-sm text-muted">Just leave a message—name and email are optional.</p>
+          <form className="mt-3 space-y-3" aria-label="Quick message form" onSubmit={handleQuickSubmit}>
+            <textarea
+              aria-label="Quick message"
+              required
+              maxLength={5000}
+              rows={3}
+              value={quickMessage}
+              onChange={(event) => setQuickMessage(event.target.value)}
+              className="w-full resize-y rounded-md border border-border bg-transparent px-3 py-3 text-sm text-foreground outline-none transition-colors placeholder:text-slate-500 focus:border-accent"
+              placeholder="Write a quick message…"
+            />
+            <div className="flex flex-wrap items-center gap-3">
+              <Button type="submit" disabled={quickSubmitting} variant="secondary">
+                {quickSubmitting ? "Sending…" : "Send quick message"}
+              </Button>
+              {quickStatus && <p role="status" className={`text-sm ${quickStatus.error ? "text-red-400" : "text-accent"}`}>{quickStatus.message}</p>}
+            </div>
+          </form>
+        </div>
       </CardContent>
     </Card>
   );

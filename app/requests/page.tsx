@@ -54,7 +54,11 @@ export default async function RequestsPage({ searchParams }: { searchParams: Pro
                 <div className="flex flex-wrap items-start justify-between gap-2">
                   <div>
                     <h2 className="font-semibold">{request.name}</h2>
-                    <a href={`mailto:${request.email}`} className="text-sm text-blue-300 hover:underline">{request.email}</a>
+                    {request.email ? (
+                      <a href={`mailto:${request.email}`} className="text-sm text-blue-300 hover:underline">{request.email}</a>
+                    ) : (
+                      <span className="text-sm text-slate-400">Quick message · no email provided</span>
+                    )}
                   </div>
                   <time dateTime={request.createdAt.toISOString()} className="text-xs text-slate-400">
                     {request.createdAt.toLocaleString("en-IN", { timeZone: "Asia/Kolkata", dateStyle: "medium", timeStyle: "short" })}

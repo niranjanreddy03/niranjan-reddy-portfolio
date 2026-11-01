@@ -7,8 +7,8 @@ import { db } from "@/lib/database";
 export const runtime = "nodejs";
 
 const requestSchema = z.object({
-  name: z.string().trim().min(1).max(100),
-  email: z.email().max(254),
+  name: z.string().trim().min(1).max(100).optional(),
+  email: z.union([z.email().max(254), z.literal("")]).optional(),
   message: z.string().trim().min(1).max(5000),
   website: z.string().max(200).optional(),
 });
@@ -38,8 +38,8 @@ export async function POST(request: NextRequest) {
     await ensureContactRequestsTable();
     await db.contactRequest.create({
       data: {
-        name: parsed.data.name,
-        email: parsed.data.email.trim().toLowerCase(),
+        name: parsed.data.name ?? "Quick message",
+        email: parsed.data.email?.trim().toLowerCase() ?? "",
         message: parsed.data.message,
       },
     });
