@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { ContactInboxSignOut } from "@/components/contact-inbox-signout";
 import { contactInboxSession, contactSessionCookie } from "@/lib/contact-inbox-auth";
 import { ensureContactRequestsTable } from "@/lib/contact-requests-server";
+import { getCvDownloadCount } from "@/lib/cv-download-counter";
 import { db } from "@/lib/database";
 
 export const metadata: Metadata = { title: "Contact requests", robots: { index: false, follow: false } };
@@ -20,6 +21,7 @@ export default async function RequestsPage({ searchParams }: { searchParams: Pro
   const requestedPage = Number((await searchParams).page);
   const pageSize = 50;
   const total = await db.contactRequest.count();
+  const cvDownloadCount = await getCvDownloadCount();
   const lastPage = Math.max(1, Math.ceil(total / pageSize));
   const page = Number.isInteger(requestedPage) && requestedPage > 0 ? Math.min(requestedPage, lastPage) : 1;
   const requests = await db.contactRequest.findMany({ orderBy: { createdAt: "desc" }, skip: (page - 1) * pageSize, take: pageSize });
@@ -38,6 +40,10 @@ export default async function RequestsPage({ searchParams }: { searchParams: Pro
             <p className="mt-2 text-sm text-slate-400">Messages submitted from the portfolio website.</p>
           </div>
           <span className="rounded-full border border-slate-700 px-3 py-1 text-sm text-slate-300">{total} total</span>
+        </div>
+        <div className="mb-8 rounded-xl border border-slate-800 bg-slate-900/40 p-5">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">CV downloads</p>
+          <p className="mt-2 text-3xl font-semibold tracking-tight text-white">{cvDownloadCount}</p>
         </div>
         {requests.length === 0 ? (
           <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-8 text-slate-400">No requests yet.</div>

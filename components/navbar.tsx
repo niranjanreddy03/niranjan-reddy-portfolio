@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowUpRight, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { ArrowUpRight, Menu, Moon, Sun, X } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const items = [
   { href: "/about", label: "About" },
@@ -16,7 +16,19 @@ const items = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    setDarkMode(document.documentElement.dataset.theme === "dark");
+  }, []);
+
+  function toggleTheme() {
+    const nextTheme = darkMode ? "light" : "dark";
+    document.documentElement.dataset.theme = nextTheme;
+    window.localStorage.setItem("portfolio-theme", nextTheme);
+    setDarkMode(nextTheme === "dark");
+  }
 
   return (
     <header className="portfolio-nav">
@@ -27,6 +39,16 @@ export function Navbar() {
         <div className="portfolio-nav-links">
           {items.map((item) => <Link href={item.href} key={item.href} aria-current={pathname === item.href ? "page" : undefined} className={pathname === item.href ? "is-active" : ""}>{item.label}</Link>)}
         </div>
+        <button
+          type="button"
+          className="portfolio-theme-toggle"
+          aria-label={`Switch to ${darkMode ? "light" : "dark"} mode`}
+          aria-pressed={darkMode}
+          onClick={toggleTheme}
+        >
+          {darkMode ? <Sun size={17} /> : <Moon size={17} />}
+          <span>{darkMode ? "Light" : "Dark"}</span>
+        </button>
         <Link className={`portfolio-nav-contact ${pathname === "/contact" ? "is-active" : ""}`} href="/contact" aria-current={pathname === "/contact" ? "page" : undefined}>Contact <ArrowUpRight size={17} /></Link>
         <button
           type="button"

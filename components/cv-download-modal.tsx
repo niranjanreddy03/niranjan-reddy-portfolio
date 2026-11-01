@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { ArrowDownToLine, X } from "lucide-react";
+import { CvDownloadLink } from "@/components/cv-download-link";
 
 const dismissedKey = "niranjan-cv-prompt-dismissed";
 
@@ -60,14 +61,12 @@ export function CvDownloadModal() {
         <span className="cv-modal-kicker">A QUICK INTRODUCTION</span>
         <h2 id="cv-modal-title">Want to know more about my work?</h2>
         <p>Download my CV for a closer look at my cybersecurity experience, projects, and skills.</p>
-        <a
+        <CvDownloadLink
           className="cv-modal-download"
-          download="Niranjan_Reddy_Cybersecurity_CV.pdf"
-          href="/Niranjan_Reddy_Cybersecurity_CV.pdf"
           onClick={closeModal}
         >
           Download my CV <ArrowDownToLine size={18} />
-        </a>
+        </CvDownloadLink>
         <button className="cv-modal-later" onClick={closeModal} type="button">
           Maybe later
         </button>

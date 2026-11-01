@@ -3,6 +3,7 @@ import { ArrowDownToLine, ArrowRight, ArrowUpRight } from "lucide-react";
 
 import { PortfolioFrame } from "@/components/portfolio-frame";
 import { PortfolioHashRedirect } from "@/components/portfolio-hash-redirect";
+import { CvDownloadLink } from "@/components/cv-download-link";
 
 const destinations = [
   { number: "01", title: "About", detail: "The person behind the work", href: "/about" },
@@ -50,13 +51,11 @@ export default function Home() {
               <div className="portfolio-hero-actions">
                 <Link className="portfolio-primary-link" href="/projects">View selected work <ArrowUpRight size={19} /></Link>
                 <Link className="portfolio-secondary-link" href="/about">About me <ArrowRight size={17} /></Link>
-                <a
+                <CvDownloadLink
                   className="portfolio-cv-link"
-                  download="Niranjan_Reddy_Cybersecurity_CV.pdf"
-                  href="/Niranjan_Reddy_Cybersecurity_CV.pdf"
                 >
                   Download my CV <ArrowDownToLine size={17} />
-                </a>
+                </CvDownloadLink>
               </div>
             </div>
             <div className="portfolio-hero-aside">
