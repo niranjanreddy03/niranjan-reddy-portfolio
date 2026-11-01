@@ -47,8 +47,8 @@
 .portfolio-nav-contact { display: inline-flex; align-items: center; gap: 18px; color: var(--ink); font-size: 13px; font-weight: 700; border-bottom: 1px solid var(--ink); padding: 6px 0; }
 .portfolio-nav-contact:hover, .portfolio-nav-contact.is-active { color: var(--blue); border-color: var(--blue); }
 .portfolio-menu-toggle, .portfolio-mobile-menu { display: none; }
-.portfolio-theme-toggle { display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; gap: 8px; min-height: 38px; padding: 0 11px; border: 1px solid var(--line); background: transparent; color: var(--ink); font: 600 12px "DM Sans", sans-serif; transition: background .2s, border-color .2s, color .2s; }
-.portfolio-theme-toggle:hover { border-color: var(--blue); color: var(--blue); }
+.portfolio-theme-toggle { display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; gap: 8px; min-height: 38px; padding: 0 11px; border: 0; background: transparent; color: var(--ink); font: 600 12px "DM Sans", sans-serif; transition: background .2s, color .2s; }
+.portfolio-theme-toggle:hover { background: rgba(127, 145, 180, .12); color: var(--blue); }
 
 /* Hero */
 .portfolio-hero { background: #fff; }
