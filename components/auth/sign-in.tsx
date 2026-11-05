@@ -25,10 +25,14 @@ export default function SignIn({ nextPath, theme = "moneyflow" }: { nextPath: st
         provider: "google",
         options: { redirectTo: callback.toString() },
       });
-      if (authError) throw authError;
-    } catch {
+      if (authError) {
+        setError(`Google sign-in could not start: ${authError.message}`);
+        setBusy(false);
+      }
+    } catch (cause) {
       setBusy(false);
-      setError("Sign-in could not start. Check the Supabase configuration and Google provider settings.");
+      const detail = cause instanceof Error ? cause.message : "Unknown error";
+      setError(`Google sign-in could not start: ${detail}`);
     }
   }
 

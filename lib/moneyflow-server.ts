@@ -1,17 +1,17 @@
 import type { NextRequest } from "next/server";
 import { db } from "@/lib/database";
 import { getSupabaseUser } from "@/lib/supabase/server";
+import { authorizedPortfolioEmail } from "@/lib/auth-authorization";
 
 const tursoUrl = process.env.TURSO_DATABASE_URL;
 const tursoToken = process.env.TURSO_AUTH_TOKEN;
 export { db };
 
-export const allowedEmail = () => process.env.MONEYFLOW_ALLOWED_EMAIL?.trim().toLowerCase() ?? "";
+export const allowedEmail = () => authorizedPortfolioEmail;
 export const configured = () => Boolean(
   (tursoUrl && tursoToken || process.env.DATABASE_URL && !process.env.MONEYFLOW_PUBLIC_ORIGIN) &&
   process.env.NEXT_PUBLIC_SUPABASE_URL &&
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY &&
-  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(allowedEmail()),
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
 );
 
 export async function sessionUser(request?: NextRequest) {

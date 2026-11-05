@@ -22,7 +22,6 @@ In the existing Amplify app's **Hosting → Environment variables**, add these s
 | --- | --- |
 | `TURSO_DATABASE_URL` | The imported database's `libsql://` URL |
 | `TURSO_AUTH_TOKEN` | The token created for that database |
-| `MONEYFLOW_ALLOWED_EMAIL` | The email provisioned for the MoneyFlow workspace |
 | `MONEYFLOW_PUBLIC_ORIGIN` | `https://moneyflow.niranjanreddy.tech` |
 | `NEXT_PUBLIC_SUPABASE_URL` | The Supabase project URL |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | The Supabase publishable key |

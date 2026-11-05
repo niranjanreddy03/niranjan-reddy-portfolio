@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { authorizedPortfolioEmail } from "@/lib/auth-authorization";
 
 export async function GET(request: NextRequest) {
   const code = request.nextUrl.searchParams.get("code");
@@ -19,11 +20,7 @@ export async function GET(request: NextRequest) {
   if (error) return NextResponse.redirect(new URL("/signin?error=auth", request.url));
   const { data: { user } } = await supabase.auth.getUser();
   const email = user?.email?.trim().toLowerCase();
-  const allowedEmails = new Set([
-    process.env.MONEYFLOW_ALLOWED_EMAIL?.trim().toLowerCase(),
-    "indukuriniranjanreddy@gmail.com",
-  ].filter((value): value is string => Boolean(value)));
-  if (!email || !allowedEmails.has(email)) {
+  if (email !== authorizedPortfolioEmail) {
     await supabase.auth.signOut();
     return NextResponse.redirect(new URL("/signin?error=unauthorized", request.url));
   }
