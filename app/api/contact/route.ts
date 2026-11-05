@@ -15,7 +15,7 @@ const requestSchema = z.object({
 
 export async function POST(request: NextRequest) {
   if (request.headers.get("origin") !== request.nextUrl.origin) {
-    return NextResponse.json({ error: "Invalid origin" }, { status: 403 });
+    return NextResponse.json({ error: "Please reload the contact page and try again." }, { status: 403 });
   }
 
   try {
@@ -45,6 +45,6 @@ export async function POST(request: NextRequest) {
     });
     return NextResponse.json({ ok: true }, { status: 201 });
   } catch {
-    return NextResponse.json({ error: "Could not submit your message" }, { status: 500 });
+    return NextResponse.json({ error: "Your message could not be saved right now. Please try again in a moment." }, { status: 503 });
   }
 }

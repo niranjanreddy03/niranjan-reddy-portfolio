@@ -37,14 +37,18 @@ export function ContactForm() {
           website: String(formData.get("website") ?? ""),
         }),
       });
+      const result = await response.json().catch(() => null) as { error?: string } | null;
       if (!response.ok) {
-        throw new Error("Request submission failed");
+        throw new Error(result?.error || "Could not submit your request. Please try again.");
       }
 
       form.reset();
       setStatus({ message: "Message sent. Thanks for reaching out!", error: false });
-    } catch {
-      setStatus({ message: "Could not submit your request. Please try again.", error: true });
+    } catch (error) {
+      setStatus({
+        message: error instanceof Error ? error.message : "Could not submit your request. Please try again.",
+        error: true,
+      });
     } finally {
       setSubmitting(false);
     }
