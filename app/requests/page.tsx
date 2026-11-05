@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { ContactInboxSignOut } from "@/components/contact-inbox-signout";
-import { contactInboxSession, contactSessionCookie } from "@/lib/contact-inbox-auth";
+import { contactInboxSession } from "@/lib/contact-inbox-auth";
 import { ensureContactRequestsTable } from "@/lib/contact-requests-server";
 import { getCvDownloadCount } from "@/lib/cv-download-counter";
 import { db } from "@/lib/database";
@@ -14,7 +13,7 @@ export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
 export default async function RequestsPage({ searchParams }: { searchParams: Promise<{ page?: string }> }) {
-  const authenticated = await contactInboxSession((await cookies()).get(contactSessionCookie)?.value);
+  const authenticated = await contactInboxSession();
   if (!authenticated) redirect("/requests/signin");
 
   await ensureContactRequestsTable();
