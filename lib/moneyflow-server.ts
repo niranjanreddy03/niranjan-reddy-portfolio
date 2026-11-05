@@ -1,31 +1,47 @@
-import type { NextRequest } from "next/server";
+import { SignJWT, jwtVerify } from "jose";
+import type { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/database";
-import { getSupabaseUser } from "@/lib/supabase/server";
-import { authorizedPortfolioEmail } from "@/lib/auth-authorization";
 
 const tursoUrl = process.env.TURSO_DATABASE_URL;
 const tursoToken = process.env.TURSO_AUTH_TOKEN;
 export { db };
 
-export const allowedEmail = () => authorizedPortfolioEmail;
+const cookieName = "moneyflow_session";
+const ownerEmail = "indukuriniranjanreddy@gmail.com";
+const secret = () => {
+  const value = process.env.MONEYFLOW_AUTH_SECRET;
+  if (!value || value.length < 32) throw new Error("MONEYFLOW_AUTH_SECRET must be at least 32 characters");
+  return new TextEncoder().encode(value);
+};
+export const allowedEmail = () => ownerEmail;
 export const configured = () => Boolean(
   (tursoUrl && tursoToken || process.env.DATABASE_URL && !process.env.MONEYFLOW_PUBLIC_ORIGIN) &&
-  process.env.NEXT_PUBLIC_SUPABASE_URL &&
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
+  process.env.MONEYFLOW_AUTH_SECRET && process.env.MONEYFLOW_AUTH_SECRET.length >= 32 &&
+  process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET,
 );
-
-export async function sessionUser(request?: NextRequest) {
-  if (!configured()) return null;
-  const authUser = await getSupabaseUser(request);
-  if (!authUser || authUser.email !== allowedEmail()) return null;
-  const user = await db.user.findUnique({
-    where: { email: authUser.email },
-    select: { id: true, email: true, name: true, workspaceVersion: true },
-  });
-  if (!user) return null;
-  return { id: user.id, email: user.email, name: user.name, workspaceVersion: user.workspaceVersion };
+export function googleRedirectUri(request: NextRequest) {
+  const origin = process.env.MONEYFLOW_PUBLIC_ORIGIN ? new URL(process.env.MONEYFLOW_PUBLIC_ORIGIN).origin : request.nextUrl.origin;
+  return `${origin}/api/moneyflow/auth/google/callback`;
 }
-
+export async function sessionUserToken(token?: string) {
+  if (!token || !configured()) return null;
+  try {
+    const { payload } = await jwtVerify(token, secret(), { issuer: "moneyflow", audience: "moneyflow-web" });
+    if (typeof payload.sub !== "string") return null;
+    const user = await db.user.findUnique({ where: { id: payload.sub }, select: { id: true, email: true, name: true, googleSub: true, workspaceVersion: true } });
+    if (!user || user.email.toLowerCase() !== ownerEmail || !user.googleSub) return null;
+    return { id: user.id, email: user.email, name: user.name, workspaceVersion: user.workspaceVersion };
+  } catch { return null; }
+}
+export async function sessionUser(request: NextRequest) {
+  return sessionUserToken(request.cookies.get(cookieName)?.value);
+}
+export const sessionCookieName = cookieName;
+export async function setSession(response: NextResponse, userId: string) {
+  const token = await new SignJWT({}).setProtectedHeader({ alg: "HS256" }).setSubject(userId).setIssuer("moneyflow").setAudience("moneyflow-web").setIssuedAt().setExpirationTime("8h").sign(secret());
+  response.cookies.set(cookieName, token, { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/", maxAge: 60 * 60 * 8 });
+}
+export function clearSession(response: NextResponse) { response.cookies.set(cookieName, "", { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/", maxAge: 0 }); }
 export function sameOrigin(request: NextRequest) {
   const publicOrigin = process.env.MONEYFLOW_PUBLIC_ORIGIN && new URL(process.env.MONEYFLOW_PUBLIC_ORIGIN).origin;
   const requestHost = request.headers.get("host")?.split(":")[0].toLowerCase();

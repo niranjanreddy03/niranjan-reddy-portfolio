@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { configured, sameOrigin, sessionUser } from "@/lib/moneyflow-server";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { clearSession, configured, sameOrigin, sessionUser } from "@/lib/moneyflow-server";
 
 export const runtime = "nodejs";
 
@@ -12,8 +11,7 @@ export async function GET(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   if (!sameOrigin(request)) return NextResponse.json({ error: "Invalid origin" }, { status: 403 });
-  const supabase = await createSupabaseServerClient();
-  await supabase?.auth.signOut();
   const response = NextResponse.json({ ok: true });
+  clearSession(response);
   return response;
 }

@@ -2,14 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
 export async function middleware(request: NextRequest) {
+  const host = request.headers.get("host")?.split(":")[0].toLowerCase();
+  const isMoneyFlowHost = host === "moneyflow.niranjanreddy.tech";
   let response = NextResponse.next({ request });
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
-  if (supabaseUrl && supabaseKey) {
+  if (!isMoneyFlowHost && supabaseUrl && supabaseKey) {
     const supabase = createServerClient(supabaseUrl, supabaseKey, {
-      cookieOptions: process.env.NODE_ENV === "production" && process.env.SUPABASE_COOKIE_DOMAIN
-        ? { domain: process.env.SUPABASE_COOKIE_DOMAIN }
-        : undefined,
       cookies: {
         getAll: () => request.cookies.getAll(),
         setAll(cookiesToSet) {
@@ -26,8 +25,7 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  const host = request.headers.get("host")?.split(":")[0].toLowerCase();
-  if (host !== "moneyflow.niranjanreddy.tech") return response;
+  if (!isMoneyFlowHost) return response;
   if (request.nextUrl.pathname.startsWith("/requests")) {
     return NextResponse.redirect(new URL(request.nextUrl.pathname + request.nextUrl.search, "https://niranjanreddy.tech"));
   }

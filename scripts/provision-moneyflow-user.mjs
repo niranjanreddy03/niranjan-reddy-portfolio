@@ -17,7 +17,7 @@ const db = tursoUrl && tursoToken
   : new PrismaClient();
 try {
   await db.user.upsert({ where: { email }, create: { email }, update: {} });
-  console.log(`MoneyFlow account provisioned for ${email}. Supabase Google sign-in can now use it.`);
+  console.log(`MoneyFlow account provisioned for ${email}. Google sign-in can now use it.`);
 } finally {
   await db.$disconnect();
 }

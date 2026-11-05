@@ -9,9 +9,6 @@ export async function createSupabaseServerClient(request?: NextRequest) {
   if (!url || !key) return null;
 
   return createServerClient(url, key, {
-    cookieOptions: process.env.NODE_ENV === "production" && process.env.SUPABASE_COOKIE_DOMAIN
-      ? { domain: process.env.SUPABASE_COOKIE_DOMAIN }
-      : undefined,
     cookies: {
       getAll() {
         return request ? request.cookies.getAll() : cookieStore!.getAll();

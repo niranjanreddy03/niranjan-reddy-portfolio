@@ -22,13 +22,16 @@ In the existing Amplify app's **Hosting → Environment variables**, add these s
 | --- | --- |
 | `TURSO_DATABASE_URL` | The imported database's `libsql://` URL |
 | `TURSO_AUTH_TOKEN` | The token created for that database |
+| `MONEYFLOW_AUTH_SECRET` | A new random value of at least 32 characters |
+| `MONEYFLOW_ALLOWED_EMAIL` | `indukuriniranjanreddy@gmail.com` |
 | `MONEYFLOW_PUBLIC_ORIGIN` | `https://moneyflow.niranjanreddy.tech` |
-| `NEXT_PUBLIC_SUPABASE_URL` | The Supabase project URL |
-| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | The Supabase publishable key |
-| `SUPABASE_COOKIE_DOMAIN` | `.niranjanreddy.tech` so the portfolio and MoneyFlow share the session |
+| `GOOGLE_CLIENT_ID` | Client ID for MoneyFlow's separate Google OAuth client |
+| `GOOGLE_CLIENT_SECRET` | Client secret for MoneyFlow's separate Google OAuth client |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL for the portfolio inbox only |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Supabase publishable key for the portfolio inbox only |
 | `DATABASE_URL` | `file:./moneyflow.db` for Prisma's build-time schema; runtime uses Turso |
 
-Enable Google as an Auth provider in Supabase. Add `https://niranjanreddy.tech/auth/callback` and `https://moneyflow.niranjanreddy.tech/auth/callback` to Supabase's allowed redirect URLs. Set the same Supabase URL, publishable key, and cookie domain in the portfolio deployment so both subdomains use one session. Add `http://localhost:3000/auth/callback` and `http://localhost:3032/auth/callback` for local development.
+MoneyFlow keeps a separate direct Google OAuth flow. Register `https://moneyflow.niranjanreddy.tech/api/moneyflow/auth/google/callback` with its Google OAuth client. The portfolio inbox alone uses Supabase Auth on `niranjanreddy.tech`; its Supabase allowed redirect URLs should include `https://niranjanreddy.tech/auth/callback` and `http://localhost:3000/auth/callback`. Do not add MoneyFlow's callback to Supabase Auth.
 
 In the Amplify build settings, place `npm run amplify:prepare-env` **after** `npm ci` and **before** `npm run build`. Keep the existing output directory `.next`. For example, the build commands are:
 
@@ -53,6 +56,6 @@ Wait until Amplify marks the domain available and HTTPS works. Then, if you want
 
 ## 4. Verify live sign-in
 
-Open `https://moneyflow.niranjanreddy.tech`. It should show the MoneyFlow sign-in page. Continue with Google through Supabase using the authorized account; confirm that the dashboard opens and the existing entries appear. Check a subscription and account balance. If login fails, check the Amplify SSR logs, Supabase provider setup, allowed redirect URLs, and production environment variables without sharing secret values.
+Open `https://moneyflow.niranjanreddy.tech`. It should show the MoneyFlow sign-in page. Continue with Google using MoneyFlow's separate OAuth client and the authorized owner account; confirm that the dashboard opens and the existing entries appear. Check a subscription and account balance. If login fails, check the Amplify SSR logs, Google OAuth callback URI, and production environment variables without sharing secret values.
 
 References: [Turso SQLite import](https://docs.turso.tech/cli/db/import), [Prisma with Turso](https://www.prisma.io/docs/orm/v6/overview/databases/turso), [Amplify subdomains](https://docs.aws.amazon.com/amplify/latest/userguide/to-manage-subdomains.html), [Amplify with Cloudflare DNS](https://docs.aws.amazon.com/amplify/latest/userguide/to-add-a-custom-domain-managed-by-cloudflare.html), [Amplify SSR variables](https://docs.aws.amazon.com/amplify/latest/userguide/ssr-environment-variables.html).
