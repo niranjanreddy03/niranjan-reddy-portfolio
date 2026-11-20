@@ -36,6 +36,7 @@ export const capabilities = [
 ];
 
 export const credentials = [
+  { title: "CompTIA Security+", issuer: "CompTIA", href: "https://cp.certmetrics.com/CompTIA/en/public/verify/credential/dcf14d550c744348aaa30a55a64c9816", label: "Verify credential" },
   { title: "Digital Forensics Investigator", issuer: "Quick Heal Academy", href: "/certificates/quick-heal-digital-forensics-investigator.pdf", label: "Certificate" },
   { title: "TryHackMe Security Labs", issuer: "TryHackMe", href: "https://tryhackme.com/p/niranjan.123", label: "Public profile" },
   { title: "Python Programming", issuer: "CipherSchools", href: "https://www.cipherschools.com/certificate/preview?id=687db9bf3eaa79325b2d2a24", label: "Certificate" },
