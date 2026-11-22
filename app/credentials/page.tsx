@@ -22,7 +22,6 @@ export default function CredentialsPage() {
               </a>
             ))}
           </div>
-          <p className="portfolio-pending">CompTIA Security+ verification link coming soon.</p>
         </div>
       </section>
     </PortfolioFrame>
