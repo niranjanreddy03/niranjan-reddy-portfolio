@@ -36,6 +36,7 @@ export const capabilities = [
 ];
 
 export const credentials = [
+  { title: "CompTIA Cysa+", issuer: "CompTIA", href: "https://cp.certmetrics.com/CompTIA/en/public/verify/credential/f0f44036a7da49f4853e84830e8e0739", label: "Verify credential" },
   { title: "CompTIA Security+", issuer: "CompTIA", href: "https://cp.certmetrics.com/CompTIA/en/public/verify/credential/dcf14d550c744348aaa30a55a64c9816", label: "Verify credential" },
   { title: "Digital Forensics Investigator", issuer: "Quick Heal Academy", href: "/certificates/quick-heal-digital-forensics-investigator.pdf", label: "Certificate" },
   { title: "TryHackMe Security Engineer", issuer: "TryHackMe", href: "https://tryhackme.com/certificate/THM-M4ZJGH1XU5", label: "Verify credential" },
